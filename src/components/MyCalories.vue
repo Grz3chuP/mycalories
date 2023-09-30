@@ -2,6 +2,7 @@
   <div class="caloriesFull">
 Liczba kalori full {{name}}
   </div>
+  <CaloriesStandards @addStandardItem="addToCalories"/>
   <form @submit.prevent="newCalories">
   <input v-model="nowaLiczbaCalori"
          placeholder="Podaj Liczbe kalori"
@@ -26,6 +27,8 @@ Liczba kalori full {{name}}
 import {ref, computed} from "vue";
 import CaloriesAlert from "@/components/CaloriesAlert.vue";
 import CaloriesHistory from "@/components/CaloriesHistory.vue";
+import CaloriesStandards from "@/components/CaloriesStandards.vue";
+import * as events from "events";
 
 defineProps({
 
@@ -39,16 +42,19 @@ function newCalories() {
   if (nowaLiczbaCalori.value === '') {
     return;
   }
+
   caloriesHistory.value.push(nowaLiczbaCalori.value);
   totalCalories.value = parseInt(nowaLiczbaCalori.value)  + parseInt(totalCalories.value);
   nowaLiczbaCalori.value = '';
   wrongInput.value = '';
 }
+function addToCalories (item: number) {
+  caloriesHistory.value.push(item);
+  totalCalories.value = parseInt(item)  + parseInt(totalCalories.value);
+}
 function validateNumericInput() {
   const testValue = nowaLiczbaCalori.value;
-  console.log(testValue);
   nowaLiczbaCalori.value = nowaLiczbaCalori.value.replace(/[^0-9]/g, '');
-  console.log("bez liter" + nowaLiczbaCalori.value);
   if (testValue !== nowaLiczbaCalori.value) {
 
     wrongInput.value = testValue ;
@@ -103,6 +109,8 @@ input {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  border-top: #9d9fa6 solid 1px;
+  padding-top: 4px;
 
 
 }
