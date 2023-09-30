@@ -20,21 +20,32 @@ Liczba kalori full {{name}}
   />
   </div>
   <CaloriesAlert v-if="wrongInput" :caloriesAlert="wrongInput" @zamknij="wrongInput = ''"/>
+  <div>
+    <small>
+      <i>
+        {{ countClicks }}
+      </i>
+    </small>
+    <pre>
+      {{ historia }}
+    </pre>
+  </div>
 </template>
 
 
 <script setup lang="ts">
-import {ref, computed} from "vue";
+import {ref} from "vue";
 import CaloriesAlert from "@/components/CaloriesAlert.vue";
 import CaloriesHistory from "@/components/CaloriesHistory.vue";
 import CaloriesStandards from "@/components/CaloriesStandards.vue";
-import * as events from "events";
+import {countClicks, historia, incremenCountClicks} from "@/store";
 
 defineProps({
 
   name: String,
 })
 let caloriesHistory = ref([]);
+historia.value = caloriesHistory.value;
 let totalCalories = ref(0);
 let nowaLiczbaCalori = ref('');
 let wrongInput = ref('');
@@ -49,6 +60,7 @@ function newCalories() {
   wrongInput.value = '';
 }
 function addToCalories (item: number) {
+  incremenCountClicks();
   caloriesHistory.value.push(item);
   totalCalories.value = parseInt(item)  + parseInt(totalCalories.value);
 }

@@ -21,6 +21,7 @@ function addToStandardList () {
 }
 </script>
 
+
 <template>
   <section>
     <h3>Podaj nazwe oraz ilość kalori</h3>
@@ -31,7 +32,7 @@ function addToStandardList () {
          class="removeBtn"
     >{{item.name}}</div>
     </div>
-    <form @submit.prevent="addToStandardList" >
+    <form @submit.prevent="addToStandardList()" >
       <input type="text" v-model="standardName" placeholder="Nazwa">
       <input type="text" v-model="standardCalories" placeholder="Kalorie">
       <button type="submit">Dodaj</button>

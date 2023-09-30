@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {computed, reactive, ref} from "vue";
 import StandardCalform from "@/components/StandardCalform.vue";
+import {incremenCountClicks} from "@/store";
 
 
 
@@ -24,15 +25,18 @@ const standardCaloriesItems = ref([
   },
 ]);
 function addStandardItemList(item: any,cals: any) {
+  incremenCountClicks();
   console.log(item);
   console.log(cals);
   standardCaloriesItems.value.push({id: standardCaloriesItems.value.length, name: item.name, calories: item.calories});
 }
 
 function toggleEdit() {
+  incremenCountClicks();
   openEdit.value = !openEdit.value;
 }
 function removeItem(item: any) {
+  incremenCountClicks();
   console.log(item);
   standardCaloriesItems.value.splice(standardCaloriesItems.value.indexOf(item), 1);
 }
@@ -67,7 +71,7 @@ function removeItem(item: any) {
 section {
   display: flex;
   justify-content: center;
-
+  margin: 5px 0;
   flex-wrap: wrap;
   gap: 5px;
 }
@@ -77,7 +81,7 @@ section {
   background-color: #cbfc97;
   margin: 5px;
   border-radius: 5px;
-  padding: 5px 5px 12px 5px;
+  padding: 5px 5px 10px 5px;
   border: 1px solid gray;
   box-shadow: rgba(119, 119, 119, 0.6) 2px 3px 2px 0;
   border-bottom-right-radius: 50px 30px;
